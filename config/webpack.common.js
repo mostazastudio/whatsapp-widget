@@ -7,11 +7,10 @@ module.exports={
     entry:"./src/index.js",
     output:{
         path:path.resolve(__dirname, "../dist"),
-        filename:"[name].[contenthash].js",
+        filename:"bundle.js",
         library:{
             name:"WhatsappWidget",
             type:"umd",
-            export:"default",
             umdNamedDefine:true
         },
         publicPath: ""
