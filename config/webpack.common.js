@@ -11,6 +11,7 @@ module.exports={
         library:{
             name:"WhatsappWidget",
             type:"umd",
+            export:"default",
             umdNamedDefine:true
         },
         publicPath: ""
