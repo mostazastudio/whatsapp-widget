@@ -22,6 +22,7 @@ const App = () => {
             console.log(utms)
             let queryString = window.location.search;
             sessionStorage.setItem("utmsConcatenated",queryString)
+            processUtms(queryString)
         }
     },[])
 
