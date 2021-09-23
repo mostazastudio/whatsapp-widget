@@ -9,13 +9,16 @@ const App = () => {
     const { utms, processUtms } = useContext(WidgetContext)
 
     useEffect(()=>{
+        console.log("primera antes del if")
         console.log(utms)
         if (sessionStorage.getItem("utmsConcatenated")){
+            console.log("segunda en el IF verdadero")
             console.log(utms)
             let utmsConcat = sessionStorage.getItem('utmsConcatenated')
             processUtms(utmsConcat)
 
         }else{
+            console.log("segunda en el IF falso")
             console.log(utms)
             let queryString = window.location.search;
             sessionStorage.setItem("utmsConcatenated",queryString)
