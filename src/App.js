@@ -9,17 +9,18 @@ const App = () => {
     const { utms, processUtms } = useContext(WidgetContext)
 
     useEffect(()=>{
+        console.log(utms)
         if (sessionStorage.getItem("utmsConcatenated")){
+            console.log(utms)
             let utmsConcat = sessionStorage.getItem('utmsConcatenated')
             processUtms(utmsConcat)
 
         }else{
+            console.log(utms)
             let queryString = window.location.search;
             sessionStorage.setItem("utmsConcatenated",queryString)
         }
     },[])
-
-    console.log(utms)
 
     return (
         <div className="container">
