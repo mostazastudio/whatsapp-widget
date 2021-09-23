@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import InitialButton from './components/InitialButton';
 import WhatsappForm from './components/WhatsappForm';
 import "./App.css"
+import { WidgetContext } from './context/widgetContext';
 
 const App = () => {
 
+    const { utms, processUtms } = useContext(WidgetContext)
+
     useEffect(()=>{
-        var queryString = window.location.search;
-        var urlParams   = new URLSearchParams(queryString);
-        var source = urlParams.get("utm_source")
-        var medium = urlParams.get("utm_medium")
-        var campaign = urlParams.get("utm_campaign")
-        var content = urlParams.get("utm_content")
-        console.log(source)
-        console.log(medium)
-        console.log(campaign)
-        console.log(content)
+        if (sessionStorage.getItem("utmsConcatenated")){
+            let utmsConcat = sessionStorage.getItem('utmsConcatenated')
+            processUtms(utmsConcat)
+
+        }else{
+            let queryString = window.location.search;
+            sessionStorage.setItem("utmsConcatenated",queryString)
+        }
     },[])
+
+    console.log(utms)
 
     return (
         <div className="container">
