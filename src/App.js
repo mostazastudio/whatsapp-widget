@@ -9,7 +9,13 @@ const App = () => {
         var queryString = window.location.search;
         var urlParams   = new URLSearchParams(queryString);
         var source = urlParams.get("utm_source")
+        var medium = urlParams.get("utm_medium")
+        var campaign = urlParams.get("utm_campaign")
+        var content = urlParams.get("utm_content")
         console.log(source)
+        console.log(medium)
+        console.log(campaign)
+        console.log(content)
     },[])
 
     return (
