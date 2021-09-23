@@ -21,7 +21,7 @@ const prodConfig = {
     optimization : {
         splitChunks : {
             chunks: "all",
-            name: false
+            name: "mostDep.js"
         }
     },
     plugins : [ new MiniCssExtractPlugin()]
