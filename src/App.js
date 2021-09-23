@@ -26,6 +26,8 @@ const App = () => {
         }
     },[])
 
+    console.log(utms)
+
     return (
         <div className="container">
             <WhatsappForm></WhatsappForm>
