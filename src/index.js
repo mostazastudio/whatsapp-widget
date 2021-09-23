@@ -1,17 +1,15 @@
 import React from "react";
-import ReactDOM  from "react-dom";
+import ReactDOM from "react-dom";
 import App from "./App"
-import widgetProvider from "./context/widgetContext";
+import WidgetProvider from "./context/widgetContext";
 
 
-export const init = () =>{
+ReactDOM.render(
+  <React.StrictMode>
+    <WidgetProvider>
 
-  ReactDOM.render(
-      <React.StrictMode>
-        <widgetProvider>
-        <App />
-        </widgetProvider>
-      </React.StrictMode>,
-      document.getElementById('root')
-    );
-}
+      <App />
+    </WidgetProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);

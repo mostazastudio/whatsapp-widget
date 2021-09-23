@@ -5,6 +5,14 @@ const devConfig = {
     mode: "development",
     devServer : {
         port:3000
+    },
+    module:{
+        rules: [
+            {
+                use: ["style-loader", "css-loader"],
+                test: /\.css$/,
+              }
+        ]
     }
 }
 
