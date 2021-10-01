@@ -29,7 +29,7 @@ const LoginProvider = ({children}) => {
         fetchUser();
     }, [token]);
 
-    data = {token, setToken}
+    const data = {token, setToken}
 
     return (
         <LoginContext.Provider value={data}>
