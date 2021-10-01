@@ -50,7 +50,7 @@ const LoginProvider = ({children}) => {
 
     useEffect(()=>{
 
-        token_valid = fetchUser();
+        let token_valid = fetchUser();
         if(!token_valid){
             fetchToken()
         }
