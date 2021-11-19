@@ -13,11 +13,13 @@ const WidgetProvider = ({children}) =>{
 
     const processUtms = (data) =>{
         let urlParams   = new URLSearchParams(data);
-        let utmsDict = {"source":urlParams.get("utm_source"),
-        "medium":urlParams.get("utm_medium"),
-        "campaing":urlParams.get("utm_campaign"),
-        "content":urlParams.get("utm_content"),
-        "segment":urlParams.get("utm_segment")}
+        let utmsDict = {
+            "source":urlParams.get("utm_source"),
+            "medium":urlParams.get("utm_medium"),
+            "campaign":urlParams.get("utm_campaign"),
+            "content":urlParams.get("utm_content"),
+            "segment":urlParams.get("utm_segment")
+        }
         setUtms(utmsDict)
     }
 

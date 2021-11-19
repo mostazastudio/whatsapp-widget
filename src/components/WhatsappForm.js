@@ -1,23 +1,60 @@
 import React, { useContext, useState } from 'react';
 import "../App.css"
+import { LoginContext } from '../context/loginContext';
 import { WidgetContext } from '../context/widgetContext';
 
 const WhatsappForm = () => {
 
-    const { whatsappOpen, openWhatsapp } = useContext(WidgetContext)
+    const { whatsappOpen, openWhatsapp, utms } = useContext(WidgetContext)
+    const {token, fetchToken} = useContext(LoginContext)
 
-    const toggleWhatsapp = (estado) =>{
-        var clase = ""
-        if(estado){
-            clase = "formulario open"
+    const [nombre, setNombre] = useState("")
+    const [celular, setCelular]  = useState("")
+    const [motivo, setMotivo] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
+    const [whatsappDatasended, setWhatsappDatasended] = useState(false)
+
+    const sendWhatsappData = async () => {
+        console.log("empezando la funcion de sendWhatsappData")
+        const pedir_token = await fetchToken()
+        const tokenSession = sessionStorage.getItem("whatsappWidgetToken")
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: "Bearer " + tokenSession },
+            body: JSON.stringify({"nombre":nombre,"celular":celular,"tipo_contacto":motivo,...utms})
+        }
+        console.log("voy a hacer la peticion de sendWhatsappData")
+        const response = await fetch("http://127.0.0.1:8000/prospectos", requestOptions)
+        console.log("ya hice la peticion de sendWhatsappData")
+        const data = await response.json()
+
+        if(!response.ok){
+            setErrorMessage(data.detail);
         }else{
+            setWhatsappDatasended(true)
+        }
+
+    }
+
+    const handleSubmit = async (e) =>{
+        console.log("empezando la funcion de handleSubmit")
+        e.preventDefault()
+        sendWhatsappData()
+        window.open("https://api.whatsapp.com/send?phone=3102430382&text="+motivo, '_blank').focus()
+    }
+
+    const toggleWhatsapp = (estado) => {
+        var clase = ""
+        if (estado) {
+            clase = "formulario open"
+        } else {
             clase = "formulario"
         }
         return clase
     }
 
     return (
-        <form className="form-whatsapp">
+        <form className="form-whatsapp" onSubmit={handleSubmit}>
             <div className={toggleWhatsapp(whatsappOpen)} id="form-global">
                 <div className="row">
                     <h3>¿Quieres contactar un asesor?</h3>
@@ -25,11 +62,11 @@ const WhatsappForm = () => {
                 </div>
                 <p>Completa tus datos y te contactaremos un un experto</p>
                 <label htmlFor="text_field">Tu Nombre</label>
-                <input type="text" id="text_field" />
+                <input type="text" id="text_field" onChange={(e) => setNombre(e.target.value)} />
                 <label htmlFor="number_field">Tu Celular</label>
-                <input type="text" id="number_field" />
+                <input type="text" id="number_field" onChange={(e) => setCelular(e.target.value)} />
                 <label htmlFor="select_field">Quieres ayuda de un asesor para:</label>
-                <select id="select_field">
+                <select id="select_field" onChange={(e) => setMotivo(e.target.value)}>
                     <option>Para hacer mi compra</option>
                     <option>Informacion sobre un peddio realizado</option>
                 </select>
